@@ -301,3 +301,13 @@ install on kid's Android phone
 ```
 
 The important point is that the development environment is prepared in advance, but the **actual application is still created by Grok Bot + Cursor Cloud Agents during the demo**.
+
+---
+
+# Reuse this environment in another repository
+
+This repository now includes [`.cursor/environment.json`](../.cursor/environment.json) (snapshot-backed Node 22 / npm / npx base).
+
+To copy that setup into a **different** Git repo (same Cursor account), follow:
+
+**[Reusing the Cloud Agent environment in another repository](./reusing_cloud_agent_environment.md)**
