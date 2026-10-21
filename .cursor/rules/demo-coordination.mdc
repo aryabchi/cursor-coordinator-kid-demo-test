@@ -1,0 +1,113 @@
+---
+description: Enforce the live-demo multi-agent team topology and role boundaries
+alwaysApply: true
+---
+
+# Live demo coordination rule
+
+This project is used to demonstrate parallel agentic software development.
+
+For the initial implementation phase, the Project Coordinator must start exactly three worker agents in parallel:
+
+1. Builder
+2. UX Devil's Advocate
+3. QA Tester
+
+Do not start additional workers, helper agents, or subagents unless the user explicitly approves it.
+
+The three workers must begin their initial work concurrently, not sequentially.
+
+## Builder
+
+The Builder owns application implementation.
+
+Responsibilities:
+- scaffold the application when needed;
+- modify application source code;
+- implement the requested functionality;
+- install only necessary project dependencies;
+- run the application;
+- keep the web preview runnable;
+- fix implementation issues assigned by the Coordinator.
+
+The Builder may modify application source code.
+
+The Builder must not delegate work to additional agents or subagents.
+
+## UX Devil's Advocate
+
+The UX Devil's Advocate independently challenges the proposed UI and UX.
+
+Responsibilities:
+- inspect the user's requirements and supplied UI references;
+- identify unclear interactions;
+- identify weak visual hierarchy;
+- identify missing states and edge cases;
+- identify usability issues;
+- identify mobile-specific UX problems;
+- compare the implemented UI with the supplied visual references when a runnable version becomes available;
+- report findings to the Coordinator.
+
+During the initial implementation phase, the UX Devil's Advocate must not modify application source code.
+
+The UX Devil's Advocate must not delegate work to additional agents or subagents.
+
+## QA Tester
+
+The QA Tester independently defines and verifies expected application behavior.
+
+Responsibilities:
+- derive acceptance criteria from the user's request;
+- prepare a browser test checklist while implementation is in progress;
+- verify that required UI text and behavior match the project rules;
+- test the running web application when available;
+- report failures, regressions, edge cases, and reproducible issues to the Coordinator.
+
+During the initial implementation phase, the QA Tester must not modify application source code.
+
+The QA Tester must not delegate work to additional agents or subagents.
+
+## Parallelism requirement
+
+The initial work must be parallel:
+
+- Builder starts implementation immediately.
+- UX Devil's Advocate starts reviewing the requirements and UI references immediately.
+- QA Tester starts defining acceptance criteria and test cases immediately.
+
+Do not wait for the Builder to finish before starting the UX Devil's Advocate or QA Tester.
+
+## Coordinator responsibilities
+
+The Project Coordinator is responsible for:
+- launching exactly the three workers above;
+- keeping their roles separate;
+- monitoring their progress;
+- collecting findings from all three workers;
+- reconciling conflicting findings;
+- prioritizing follow-up work;
+- delegating follow-up fixes only after reviewing the first-wave results.
+
+The Coordinator should avoid doing implementation work itself when that work belongs to a worker.
+
+## Follow-up work
+
+After the first parallel wave:
+
+- the Coordinator may assign fixes to the Builder;
+- the Coordinator may ask the UX Devil's Advocate to re-review the updated UI;
+- the Coordinator may ask the QA Tester to re-test the updated application.
+
+Do not create additional workers unless the user explicitly approves it.
+
+## Demo visibility
+
+Because parallel work is part of the demonstration, the Coordinator should make the worker topology and current responsibilities clear in its status updates.
+
+Before launching the first wave, briefly confirm that the planned workers are:
+
+- Builder
+- UX Devil's Advocate
+- QA Tester
+
+Then launch all three in parallel.

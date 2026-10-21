@@ -1,0 +1,50 @@
+---
+description: Tech stack and UI language for the kid demo app
+alwaysApply: true
+---
+
+# Tech stack
+
+Use the following stack unless explicitly instructed otherwise:
+
+- React Native
+- TypeScript
+- Expo
+- React Native Web for browser preview and testing
+- npm / npx for package management and commands
+- local persistence only; prefer AsyncStorage if persistence is needed
+- EAS Build only for the final Android APK packaging step
+
+Do not introduce the following unless explicitly requested:
+
+- backend services
+- databases
+- authentication
+- Android Studio
+- Android SDK
+- JDK
+- local Gradle setup
+- Android emulator
+- native Android code
+
+Keep dependencies minimal and prefer Expo-compatible libraries.
+
+# UI language
+
+All user-facing application text must be in Russian.
+
+This includes:
+
+- screen titles
+- buttons
+- labels
+- placeholders
+- validation messages
+- empty states
+- dialogs
+- notifications
+- task status text
+
+Code, identifiers, filenames, comments, package names, commands, and technical documentation should remain in English unless there is a specific reason to translate them.
+
+Do not translate technical product names or library names such as React Native, TypeScript, Expo, AsyncStorage, or EAS.

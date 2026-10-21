@@ -1,0 +1,281 @@
+---
+description: Enforce the live-demo multi-agent team topology, visual UX review, and browser-based QA
+alwaysApply: true
+---
+
+# Live demo coordination rule
+
+This project is used to demonstrate parallel agentic software development.
+
+For the initial implementation phase, the Project Coordinator must start exactly three worker agents in parallel:
+
+1. Builder
+2. UX Devil's Advocate
+3. QA Tester
+
+Do not start additional workers, helper agents, or subagents unless the user explicitly approves it.
+
+The three workers must begin their initial work concurrently, not sequentially.
+
+---
+
+## Builder
+
+The Builder owns application implementation.
+
+Responsibilities:
+- scaffold the application when needed;
+- modify application source code;
+- implement the requested functionality;
+- install only necessary project dependencies;
+- run the application;
+- keep the Expo Web preview runnable;
+- fix implementation issues assigned by the Coordinator;
+- preserve compatibility with the project tech-stack rules.
+
+The Builder may modify application source code.
+
+The Builder must not delegate work to additional agents or subagents.
+
+The Builder should leave the web application running when a usable version is ready so the UX Devil's Advocate, QA Tester, and user can inspect it.
+
+---
+
+## UX Devil's Advocate
+
+The UX Devil's Advocate is an independent, skeptical reviewer of the product's UI and UX.
+
+Its purpose is not to approve the Builder's work by default. It must actively look for weak design decisions, inconsistencies, unclear interactions, and deviations from the supplied visual references.
+
+During the initial implementation phase, the UX Devil's Advocate must not modify application source code.
+
+The UX Devil's Advocate must not delegate work to additional agents or subagents.
+
+### Initial parallel work
+
+While the Builder is implementing, the UX Devil's Advocate must immediately:
+
+- inspect the user's requirements;
+- inspect supplied screenshots, Figma exports, or other visual references;
+- identify the intended visual hierarchy and interaction model;
+- identify likely UX risks before implementation is complete;
+- prepare a concrete visual review checklist.
+
+Do not wait for the Builder to finish before beginning this work.
+
+### Visual-judge review
+
+When a runnable Expo Web version becomes available, compare the live application against the supplied visual reference.
+
+Use a visual-judge style review rather than vague aesthetic feedback.
+
+Evaluate at minimum:
+
+1. **Structure**
+   - screen composition;
+   - information hierarchy;
+   - grouping of related controls;
+   - relative placement of major elements.
+
+2. **Typography**
+   - hierarchy between headings, labels, task text, and secondary text;
+   - size and weight consistency;
+   - readability.
+
+3. **Spacing and layout**
+   - margins;
+   - padding;
+   - alignment;
+   - vertical rhythm;
+   - consistency between repeated elements.
+
+4. **Controls and affordances**
+   - buttons look actionable;
+   - inputs are identifiable;
+   - navigation is understandable;
+   - destructive or irreversible actions are clear.
+
+5. **States**
+   - empty state;
+   - populated state;
+   - completed-task state;
+   - validation/error state where applicable;
+   - disabled/loading state where applicable.
+
+6. **Reference fidelity**
+   - major visual differences from the supplied screenshots/Figma reference;
+   - missing or substituted design elements;
+   - inappropriate simplifications.
+
+7. **Mobile suitability**
+   - tap targets;
+   - content density;
+   - likely small-screen behavior;
+   - touch-first interaction;
+   - absence of obviously desktop-only assumptions.
+
+8. **Accessibility basics**
+   - readable contrast;
+   - understandable labels;
+   - visible focus/selection state where relevant;
+   - no reliance on color alone for important state.
+
+### Evidence
+
+The UX Devil's Advocate should base findings on the actual running UI when possible.
+
+Prefer:
+- live browser inspection;
+- screenshots of the running Expo Web app;
+- direct comparison against the supplied visual reference.
+
+If a visual-judge capability from an installed plugin such as dyl-stack is available, it may be used as part of this review.
+
+Do not require such a plugin in order to perform the review; the rubric above is authoritative for this project.
+
+### Output format
+
+Report findings to the Coordinator in three groups:
+
+- **Blockers** — important UX/design problems that should be fixed before demo approval;
+- **Significant findings** — meaningful deviations or usability problems;
+- **Suggestions** — lower-priority improvements.
+
+Each finding should be concrete and actionable.
+
+Avoid vague feedback such as:
+- "make it nicer";
+- "improve UX";
+- "looks off".
+
+Prefer feedback such as:
+- "The primary Add Task action is visually weaker than secondary controls."
+- "The New Task screen has no visible way to cancel and return without saving."
+- "Completed tasks are not sufficiently distinguishable from active tasks."
+- "Spacing between repeated task rows is inconsistent with the supplied reference."
+
+The UX Devil's Advocate reports findings only. The Coordinator decides which findings to act on.
+
+---
+
+## QA Tester
+
+The QA Tester performs independent functional verification.
+
+Use the Playwright plugin as the primary browser-testing tool.
+
+During the initial implementation phase:
+- derive acceptance criteria;
+- prepare browser test scenarios;
+- do not modify application source code.
+
+When the Builder's implementation is available:
+- obtain the Builder's committed revision;
+- run the Expo Web application in the QA worker's own VM;
+- use Playwright to test the real running application;
+- click controls, enter data, navigate between screens, and verify observable results;
+- capture screenshots when useful;
+- report failures with exact reproduction steps.
+
+Verify at minimum:
+- the task-list screen renders;
+- the New Task screen opens;
+- all user-facing text is in Russian;
+- a task can be created;
+- required fields are validated;
+- saving returns to the task list;
+- the created task appears;
+- the task can be marked completed;
+- no browser/runtime error breaks the tested flow.
+
+Report a verdict:
+- PASS
+- FAIL
+- INCONCLUSIVE
+
+Do not fix application code.
+Report findings to the Coordinator.
+
+---
+
+## Parallelism requirement
+
+The initial work must be genuinely parallel:
+
+- Builder starts implementation immediately.
+- UX Devil's Advocate starts reviewing requirements and visual references immediately.
+- QA Tester starts defining acceptance criteria and browser test cases immediately.
+
+Do not wait for the Builder to finish before starting the UX Devil's Advocate or QA Tester.
+
+The purpose of this project is to visibly demonstrate parallel implementation + critique + QA.
+
+---
+
+## Coordinator responsibilities
+
+The Project Coordinator is responsible for:
+
+- launching exactly the three workers above;
+- launching them concurrently;
+- keeping their roles separate;
+- ensuring only the Builder modifies application source code during the first wave;
+- monitoring progress from all three workers;
+- collecting findings from all three workers;
+- reconciling conflicting findings;
+- prioritizing follow-up work;
+- assigning fixes after reviewing the first-wave results;
+- keeping the user informed about what each worker is doing.
+
+The Coordinator should avoid doing implementation work itself when that work belongs to a worker.
+
+The Coordinator must not create additional workers unless the user explicitly approves it.
+
+---
+
+## First-wave completion gate
+
+The first implementation wave is not complete merely because the Builder says the app is done.
+
+Before moving on, the Coordinator must have:
+
+1. Builder's implementation result;
+2. UX Devil's Advocate review;
+3. QA Tester verdict.
+
+The Coordinator must synthesize all three before deciding whether the app is ready for user live testing.
+
+---
+
+## Follow-up work
+
+After the first parallel wave:
+
+- the Coordinator may assign fixes to the Builder;
+- the Coordinator may ask the UX Devil's Advocate to re-review the updated UI;
+- the Coordinator may ask the QA Tester to re-test the updated application.
+
+Re-use the same three workers where practical.
+
+Do not create additional workers unless the user explicitly approves it.
+
+---
+
+## Demo visibility
+
+Because parallel work is part of the demonstration, the Coordinator should make the worker topology and current responsibilities clear in its status updates.
+
+Before launching the first wave, briefly confirm that the planned workers are:
+
+- Builder
+- UX Devil's Advocate
+- QA Tester
+
+Then launch all three in parallel.
+
+When the first wave finishes, summarize:
+
+- what Builder implemented;
+- what UX Devil's Advocate challenged;
+- what QA Tester verified or found;
+- what follow-up actions will be delegated.
