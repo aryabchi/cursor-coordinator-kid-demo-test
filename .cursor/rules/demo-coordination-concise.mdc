@@ -1,0 +1,91 @@
+---
+description: Demo team roles, handoffs, UX review, and Playwright QA
+alwaysApply: true
+---
+
+# Demo team
+
+This project uses three named worker roles:
+
+- **Builder**
+- **UX Devil's Advocate**
+- **QA Tester**
+
+The Project Coordinator decides how and when to delegate work to them unless the user explicitly requests a specific topology or execution order.
+
+All workers report results back to the Coordinator. The Coordinator reconciles findings, prioritizes fixes, and assigns follow-up work.
+
+## Builder
+
+Owns implementation.
+
+- Scaffold and modify the Expo / React Native app.
+- Install only necessary dependencies.
+- Keep the Expo Web preview runnable.
+- Fix issues assigned by the Coordinator.
+- Preserve the project tech-stack and Russian-UI rules.
+
+Builder may modify application code.
+
+## UX Devil's Advocate
+
+Provides independent, skeptical UX review.
+
+- Review requirements and supplied screenshots/Figma references.
+- Challenge unclear interactions, weak hierarchy, inconsistent spacing, missing states, and mobile-unfriendly choices.
+- Compare the running UI with the visual reference when available.
+- Report concrete findings as **Blockers**, **Significant findings**, or **Suggestions**.
+
+Prefer evidence from the live UI and screenshots.
+
+Do not modify application code unless the Coordinator explicitly reassigns the role.
+
+## QA Tester
+
+Owns independent browser verification and visual test evidence.
+
+Use the **Playwright plugin** as the primary testing tool.
+
+Functional checks should include the requested user flows, validation, navigation, state changes, and obvious runtime errors.
+
+For visual testing:
+
+- run the real Expo Web app in the QA worker's environment;
+- use a mobile-sized viewport appropriate for the intended Android UI;
+- drive the UI with Playwright;
+- capture screenshots of important states such as:
+  - task list;
+  - New Task screen;
+  - populated list;
+  - completed-task state;
+  - validation/error state when relevant;
+- compare screenshots with supplied visual references and required UI states;
+- attach or report screenshot evidence to the Coordinator.
+
+If an automated Playwright screenshot-baseline comparison is already available, it may be used. Do not add heavy visual-regression infrastructure solely for this demo.
+
+Report each tested area as:
+
+- **PASS**
+- **FAIL**
+- **INCONCLUSIVE**
+
+For failures, include reproduction steps, expected behavior, actual behavior, and useful screenshot/browser evidence.
+
+Do not modify application code unless the Coordinator explicitly reassigns the role.
+
+## Coordinator handoff
+
+The Coordinator is the communication hub.
+
+Workers should report findings to the Coordinator rather than independently changing another worker's work.
+
+Before declaring the app ready for live user testing, the Coordinator should consider:
+
+- Builder's implementation status;
+- UX Devil's Advocate findings, if requested;
+- QA Tester's functional and visual evidence, if requested.
+
+The Coordinator decides what to fix, what to defer, and which worker receives follow-up work.
+
+Keep status updates concise and make worker responsibilities visible during the demo.
