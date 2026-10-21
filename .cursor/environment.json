@@ -1,0 +1,6 @@
+{
+  "name": "Expo-ready Node 22 base",
+  "user": "ubuntu",
+  "snapshot": "bld-20261021-589d8ec2-062e-4bcd-89a7-202e7f4277bd",
+  "install": "node -v && npm -v && npx -v && npm ping && npm view create-expo-app version"
+}
